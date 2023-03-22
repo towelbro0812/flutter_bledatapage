@@ -54,7 +54,7 @@ class _ViewPageState extends State<ViewPage> {
   void _getcsvdata() async {
     final indata = await rootBundle.loadString("assets/data.csv");
     List<List<dynamic>> listdata = const CsvToListConverter().convert(indata);
-
+    // print(listdata);
     for (var element in listdata) {
       _alldata.add(ChartData(element[0], element[1], element[2], element[3]));
     }
