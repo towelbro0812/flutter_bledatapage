@@ -42,7 +42,7 @@ class _ViewPageState extends State<ViewPage> {
     //連接藍芽
     device.connect();
 
-    //監聽藍芽狀態
+    //監聽藍牙設備狀態
     device.state.listen((state) {
       if (isDispose == false) {
         if (state == BluetoothDeviceState.connected) {
@@ -57,6 +57,7 @@ class _ViewPageState extends State<ViewPage> {
     });
   }
 
+  // 兩個特徵值，分別維read，write
   late BluetoothCharacteristic mCharacteristic;
   late BluetoothCharacteristic writeCharacteristic;
   void discoverServices() async {
@@ -84,14 +85,15 @@ class _ViewPageState extends State<ViewPage> {
     });
   }
 
+  //傳送資料到藍芽設備
   void senddata(String value) async {
     await writeCharacteristic.write(const AsciiEncoder().convert(value));
   }
 
+  //監聽藍芽發送的訊息
   void datacallback() async {
     await mCharacteristic.setNotifyValue(true);
     mCharacteristic.value.listen((value) {
-      //print(value);
       //print(String.fromCharCodes(value));
       List<String> strs = String.fromCharCodes(value).split(",");
       setState(() {
@@ -111,7 +113,7 @@ class _ViewPageState extends State<ViewPage> {
   }
 
   Future<void> sleep(int seconds) => Future.delayed(Duration(seconds: seconds));
-  //這裡定義一個變數，第一次按下按鈕時，創建監聽，下次的話，直接改變監聽狀態isListiung
+  //這裡定義一個變數first，第一次按下按鈕時，創建監聽，下次的話，直接改變監聽狀態isListiung
   bool first = false;
   @override
   Widget build(BuildContext context) {
@@ -143,13 +145,14 @@ class _ViewPageState extends State<ViewPage> {
               ),
               child: Column(
                 children: [
-                  const SizedBox(height: 50),
+                  Spacer(),
                   ItemBox(
                     red: red,
                     green: green,
                     ir: ir,
                   ),
-                  const SizedBox(height: 50),
+                  Spacer(),
+                  // START按鈕
                   Container(
                     padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                     width: screenSize.width,
@@ -174,7 +177,8 @@ class _ViewPageState extends State<ViewPage> {
                         style: const TextStyle(fontSize: 55),
                       ),
                     ),
-                  )
+                  ),
+                  Spacer()
                 ],
               ),
             ),

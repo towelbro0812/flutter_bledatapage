@@ -3,7 +3,8 @@ import 'package:flutter_blue/flutter_blue.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'ble_process.dart';
-import './pages/ble_page.dart';
+import './pages/ble_page.dart' as page1;
+import './pages/non_ble_page.dart' as page2;
 
 void main() => runApp(const MyApp());
 
@@ -37,7 +38,7 @@ class _ScanBlePageState extends State<ScanBlePage> {
   @override
   void initState() {
     super.initState();
-    //監聽藍芽有無開啟
+    // 監聽藍芽有無開啟
     flutterBlue.state.listen((event) async {
       if (event == BluetoothState.on) {
         print("藍芽已開啟");
@@ -88,17 +89,18 @@ class _ScanBlePageState extends State<ScanBlePage> {
                 return ListTile(
                   title: Text(device.name),
                   subtitle: Text(device.id.toString()),
+                  // 進入plot畫面
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) {
-                        return ViewPage(device: device);
+                        return page2.ViewPage(device: device);
                       },
                     ));
                   },
                 );
               }).toList(),
             )
-          : Center(child: Text("請開啟藍芽並掃描")),
+          : const Center(child: Text("請開啟藍芽並掃描")),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           if (isPermissionPass == true) {
