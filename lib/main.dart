@@ -6,6 +6,7 @@ import 'ble_process.dart';
 import './pages/ble_page.dart' as page1;
 import './pages/non_ble_page.dart' as page2;
 
+// 執行程式入口
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {

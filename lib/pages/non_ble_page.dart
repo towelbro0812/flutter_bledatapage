@@ -1,12 +1,14 @@
 import 'dart:async';
 import 'dart:math';
 
+// 外部package
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 
+//自訂義組件
 import 'ble_widget.dart';
 
 class ViewPage extends StatefulWidget {
@@ -218,6 +220,7 @@ class _PlotState extends State<Plot> {
               dataSource: widget.indata,
               xValueMapper: (ChartData point, _) => point.time,
               yValueMapper: (ChartData point, _) => point.red),
+          // 不顯示綠光
           // LineSeries<ChartData, int>(
           //     color: Colors.green.shade100,
           //     dataSource: widget.indata,
@@ -229,6 +232,7 @@ class _PlotState extends State<Plot> {
   }
 }
 
+// 折線圖資料結構
 class ChartData {
   final int time;
   final int ir;
